@@ -7,7 +7,7 @@ const AdminSystemMaintenance = () => {
 
   const performBackup = async () => {
     try {
-      const response = await api.post('/admin/system/backup');
+      await api.post('/admin/system/backup'); // Elimina la variable no usada 'response'
       setBackupStatus('Backup realizado con éxito');
     } catch (error) {
       setBackupStatus('Error al realizar el backup');
@@ -17,7 +17,7 @@ const AdminSystemMaintenance = () => {
 
   const performUpdate = async () => {
     try {
-      const response = await api.post('/admin/system/update');
+      await api.post('/admin/system/update'); // Elimina la variable no usada 'response'
       setUpdateStatus('Sistema actualizado con éxito');
     } catch (error) {
       setUpdateStatus('Error al actualizar el sistema');

@@ -8,7 +8,7 @@ const ProjectManagerCreateProject = () => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/projects', { name: projectName, description: projectDescription });
+      await api.post('/projects', { name: projectName, description: projectDescription }); // Eliminada la variable 'response'
       alert('Proyecto creado con éxito');
       setProjectName('');
       setProjectDescription('');
