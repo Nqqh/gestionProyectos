@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../src/hooks/useAuth';
-import { projectService, taskService } from '../../src/services/api'; // Cambié projectService y taskService por la ruta correcta
+import { projectService, taskService } from '../../src/services/projectService';
 import Layout from '../../src/components/Layout';
+import api from '../../src/utils/api'; // Ruta corregida
 
 export default function ProjectDetail() {
   const router = useRouter();
