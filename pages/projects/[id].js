@@ -138,7 +138,7 @@ export default ProjectDetail;**/
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../src/hooks/useAuth';
-import { projectService, taskService } from '../../src/services/api';
+import { projectService, taskService } from '../../src/services/projectService';
 import Layout from '../../src/components/Layout';
 
 export default function ProjectDetail() {
