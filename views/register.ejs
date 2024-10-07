@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+</head>
+<body>
+    <h1>Registro</h1>
+    <form action="/register" method="POST">
+        <input type="text" name="name" placeholder="Nombre" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <select name="role">
+            <option value="admin">Admin</option>
+            <option value="project_manager">Project Manager</option>
+            <option value="team_member">Team Member</option>
+        </select>
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>

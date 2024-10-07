@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Bienvenido, <%= user.name %></h1>
+    <p>Tu rol es: <%= user.role %></p>
+    <h2>Proyectos</h2>
+    <ul>
+        <% projects.forEach(function(project) { %>
+            <li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
+        <% }); %>
+    </ul>
+    <a href="/projects/new">Crear nuevo proyecto</a>
+    <a href="/logout">Cerrar sesión</a>
+</body>
+</html>
