@@ -78,7 +78,7 @@ export default NewProject;**/
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../src/hooks/useAuth';
-import { projectService } from '../../src/services/api';
+import { projectService } from '../../src/services/projectService';
 import Layout from '../../src/components/Layout';
 import Link from 'next/link';
 
