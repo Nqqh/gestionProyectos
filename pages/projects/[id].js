@@ -3,12 +3,11 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../src/hooks/useAuth';
 import { projectService, taskService } from '../../src/services/projectService';
 import Layout from '../../src/components/Layout';
-import api from '../../src/utils/api'; // Ruta corregida
 
 export default function ProjectDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { user, isProjectManager } = useAuth();
+  const { isProjectManager } = useAuth();
   const [project, setProject] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({ name: '', description: '' });

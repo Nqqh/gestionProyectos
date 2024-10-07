@@ -1,34 +1,19 @@
-const STORAGE_KEY = 'projects';
+import api from '../utils/api';
 
 export const projectService = {
-  getAll: () => {
-    const projects = localStorage.getItem(STORAGE_KEY);
-    return projects ? JSON.parse(projects) : [];
-  },
-
-  getById: (id) => {
-    const projects = projectService.getAll();
-    return projects.find(p => p.id === id);
-  },
-
-  create: (project) => {
-    const projects = projectService.getAll();
-    const newProject = { ...project, id: Date.now(), status: 'En progreso' };
-    projects.push(newProject);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-    return newProject;
-  },
-
-  update: (id, updatedProject) => {
-    let projects = projectService.getAll();
-    projects = projects.map(p => p.id === id ? {...p, ...updatedProject} : p);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-    return projects.find(p => p.id === id);
-  },
-
-  delete: (id) => {
-    let projects = projectService.getAll();
-    projects = projects.filter(p => p.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-  }
+  getAll: () => api.get('/projects'),
+  getById: (id) => api.get(`/projects/${id}`),
+  create: (projectData) => api.post('/projects', projectData),
+  update: (id, projectData) => api.put(`/projects/${id}`, projectData),
+  delete: (id) => api.delete(`/projects/${id}`),
 };
+
+export const taskService = {
+  getAll: (projectId) => api.get(`/projects/${projectId}/tasks`),
+  getById: (projectId, taskId) => api.get(`/projects/${projectId}/tasks/${taskId}`),
+  create: (projectId, taskData) => api.post(`/projects/${projectId}/tasks`, taskData),
+  update: (projectId, taskId, taskData) => api.put(`/projects/${projectId}/tasks/${taskId}`, taskData),
+  delete: (projectId, taskId) => api.delete(`/projects/${projectId}/tasks/${taskId}`),
+};
+
+export default api;
