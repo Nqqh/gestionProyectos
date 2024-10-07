@@ -1,7 +1,91 @@
-import { useState, useEffect } from 'react';
-import Layout from '../../src/components/Layout';
+/**import { useState, useEffect } from 'react';
 import { useAuth } from '../../src/hooks/useAuth';
-import api from '../../src/utils/api';
+import { userService } from '../../src/services/api';
+import Layout from '../../src/components/Layout';
+
+export default function ManageUsers() {
+  const { isAdmin } = useAuth();
+  const [users, setUsers] = useState([]);
+  const [newUser, setNewUser] = useState({ name: '', email: '', role: 'team_member' });
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    const response = await userService.getAll();
+    setUsers(response.data);
+  };
+
+  const handleCreateUser = async (e) => {
+    e.preventDefault();
+    await userService.create(newUser);
+    setNewUser({ name: '', email: '', role: 'team_member' });
+    fetchUsers();
+  };
+
+  const handleUpdateUser = async (id, userData) => {
+    await userService.update(id, userData);
+    fetchUsers();
+  };
+
+  const handleDeleteUser = async (id) => {
+    await userService.delete(id);
+    fetchUsers();
+  };
+
+  if (!isAdmin()) {
+    return <div>Access Denied</div>;
+  }
+
+  return (
+    <Layout title="Manage Users">
+      <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
+      
+      <form onSubmit={handleCreateUser} className="mb-8">
+        <input
+          type="text"
+          value={newUser.name}
+          onChange={(e) => setNewUser({...newUser, name: e.target.value})}
+          placeholder="Name"
+          required
+        />
+        <input
+          type="email"
+          value={newUser.email}
+          onChange={(e) => setNewUser({...newUser, email: e.target.value})}
+          placeholder="Email"
+          required
+        />
+        <select
+          value={newUser.role}
+          onChange={(e) => setNewUser({...newUser, role: e.target.value})}
+        >
+          <option value="admin">Admin</option>
+          <option value="project_manager">Project Manager</option>
+          <option value="team_member">Team Member</option>
+        </select>
+        <button type="submit">Create User</button>
+      </form>
+
+      <ul>
+        {users.map(user => (
+          <li key={user.id} className="mb-4">
+            <span>{user.name} - {user.email} - {user.role}</span>
+            <button onClick={() => handleUpdateUser(user.id, {...user, role: 'admin'})}>
+              Make Admin
+            </button>
+            <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </Layout>
+  );
+}**/
+import { useState, useEffect } from 'react';
+import Layout from '../../components/Layout';
+import { useAuth } from '../../hooks/useAuth';
+import api from '../../utils/api';
 
 export default function ManageUsers() {
   const { isAdmin } = useAuth();
@@ -13,7 +97,7 @@ export default function ManageUsers() {
     if (isAdmin()) {
       fetchUsers();
     }
-  }, [isAdmin]); // Corregido: se añadió la dependencia isAdmin
+  }, []);
 
   const fetchUsers = async () => {
     try {
