@@ -83,9 +83,9 @@ export default function ManageUsers() {
   );
 }**/
 import { useState, useEffect } from 'react';
-import Layout from '../../components/Layout';
-import { useAuth } from '../../hooks/useAuth';
-import api from '../../utils/api';
+import Layout from '../../src/components/Layout';
+import { useAuth } from '../../src/hooks/useAuth';
+import api from '../../src/utils/api';
 
 export default function ManageUsers() {
   const { isAdmin } = useAuth();
