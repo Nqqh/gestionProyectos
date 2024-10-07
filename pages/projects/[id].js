@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../src/hooks/useAuth';
 import { projectService, taskService } from '../../src/services/projectService';
 import Layout from '../../src/components/Layout';
 
 export default function ProjectDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { isProjectManager } = useAuth();
   const [project, setProject] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({ name: '', description: '' });
@@ -47,26 +45,22 @@ export default function ProjectDetail() {
     <Layout title={project.name}>
       <h1 className="text-2xl font-bold mb-4">{project.name}</h1>
       <p>{project.description}</p>
-      
-      {isProjectManager() && (
-        <form onSubmit={handleCreateTask} className="mb-8">
-          <input
-            type="text"
-            value={newTask.name}
-            onChange={(e) => setNewTask({...newTask, name: e.target.value})}
-            placeholder="Task Name"
-            required
-          />
-          <textarea
-            value={newTask.description}
-            onChange={(e) => setNewTask({...newTask, description: e.target.value})}
-            placeholder="Description"
-            required
-          />
-          <button type="submit">Create Task</button>
-        </form>
-      )}
-
+      <form onSubmit={handleCreateTask} className="mb-8">
+        <input
+          type="text"
+          value={newTask.name}
+          onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
+          placeholder="Task Name"
+          required
+        />
+        <textarea
+          value={newTask.description}
+          onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+          placeholder="Description"
+          required
+        />
+        <button type="submit">Create Task</button>
+      </form>
       <ul>
         {tasks.map(task => (
           <li key={task.id} className="mb-4">

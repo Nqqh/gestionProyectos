@@ -1,10 +1,7 @@
 import Layout from '../src/components/Layout';
-import { useAuth } from '../src/hooks/useAuth';
 import Link from 'next/link';
 
 export default function HomePage() {
-  const { user } = useAuth();  // Aquí podrías usar `user` si lo necesitas
-
   return (
     <Layout title="Inicio">
       <h1>Bienvenido al sistema de gestión de proyectos</h1>
